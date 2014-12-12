@@ -20,6 +20,8 @@ $usr	= h2s($d[6]);
 $pwd	= h2s($d[7]);
 $sidsrc = h2s($d[8]);
 $xscript = h2s($d[9]);
+$cs_host = h2s($d[10]);
+$cs_api_token = h2s($d[11]);
 
 // Format timestamps
 $st = date("Y-m-d H:i:s", $st_unix);
@@ -251,6 +253,10 @@ if ($err == 1) {
 	// if the user requested pcap, send the pcap instead of the transcript
 	if ($xscript == "pcap") {
 	    	$mytx = $filename_download;
+	} 
+	if ($xscript == "cloudshark") {
+    // open in cloudshark
+    $mytx = "http://$cs_host/api/v1/$cs_api_token/open?url=https://192.168.2.130/capme/pcap/$filename_download";
 	}
     } else {
         $debug .= "<br>WARNING: Unable to find pcap.";

@@ -4,7 +4,7 @@ include '.inc/functions.php';
 $s = 0;
 
 // Argument defaults
-$sip = $spt = $dip = $dpt = $stime = $etime = $usr = $pwd = $sancp = $event = $elsa = $bro = $tcpflow = $pcap = '';
+$sip = $spt = $dip = $dpt = $stime = $etime = $usr = $pwd = $cs_host = $cs_api_token = $sancp = $event = $elsa = $bro = $tcpflow = $pcap = $cloudshark = '';
 // Grab any arguments provided in URI
 if (isset($_REQUEST['sip']))      { $sip    = $_REQUEST['sip'];      $s++; }
 if (isset($_REQUEST['spt']))      { $spt    = $_REQUEST['spt'];      $s++; }
@@ -14,6 +14,8 @@ if (isset($_REQUEST['stime']))    { $stime  = $_REQUEST['stime'];    $s++; }
 if (isset($_REQUEST['etime']))    { $etime  = $_REQUEST['etime'];    $s++; }
 if (isset($_REQUEST['user']))     { $usr    = $_REQUEST['user'];     $s++; }
 if (isset($_REQUEST['password'])) { $pwd    = $_REQUEST['password']; $s++; }
+if (isset($_REQUEST['cs_host']))  { $cs_host = $_REQUEST['cs_host']; $s++; }
+if (isset($_REQUEST['cs_api_token'])) { $cs_api_token = $_REQUEST['cs_api_token']; $s++; }
 // If we see a filename parameter, we know the request came from Snorby
 // and if so we can just query the event table since Snorby just has NIDS alerts
 // If the referer contains ":3154", then it's most likely a Security Onion user 
@@ -91,6 +93,18 @@ capME!
 </tr>
 
 <tr>
+<td class=capme_left>CloudShark Host:</td>
+<td class=capme_right><input type=text maxlength=32 id=cs_host class=capme_selb value="<?php echo $cs_host;?>" />
+</td>
+</tr>
+
+<tr>
+<td class=capme_left>CloudShark API Token:</td>
+<td class=capme_right><input type=text maxlength=32 id=cs_api_token class=capme_selb value="<?php echo $cs_api_token;?>" />
+</td>
+</tr>
+
+<tr>
 <td class=capme_left>Sid Source:</td>
 <td class=capme_right>
 <input type=radio name=sidsrc class=capme_rad value="sancp"<?php echo $sancp;?>>sancp
@@ -105,6 +119,7 @@ capME!
 <input type=radio name=xscript class=capme_rad value="tcpflow"<?php echo $tcpflow;?>>tcpflow
 <input type=radio name=xscript class=capme_rad value="bro"<?php echo $bro;?>>bro
 <input type=radio name=xscript class=capme_rad value="pcap"<?php echo $pcap;?>>pcap
+<input type=radio name=xscript class=capme_rad value="cloudshark"<?php echo $cloudshark;?>>cloudshark
 </td>
 </tr>
 

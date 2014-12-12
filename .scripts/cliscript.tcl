@@ -14,7 +14,7 @@
 
 ########################## GLOBALS ##################################
 
-set VERSION "SGUIL-0.8.0 OPENSSL ENABLED"
+set VERSION "SGUIL-0.9.0 OPENSSL ENABLED"
 set SERVER 127.0.0.1
 set PORT 7734
 
@@ -219,8 +219,7 @@ if { $serverVersion != $VERSION } {
 SendToSguild $socketID [list VersionInfo $VERSION]
 
 # SSL-ify the socket
-if { [catch {tls::import $socketID} tlsError] } { 
-
+if { [catch {tls::import $socketID -ssl2 false -ssl3 false -tls1 true} tlsError] } {
     puts "ERROR: $tlsError"
     exit 1
 

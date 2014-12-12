@@ -36,7 +36,11 @@ $(document).ready(function(){
  
     $(".capme_submit").click(function() {
        frmArgs = $('input[value!=""]').length;
-       if (frmArgs == 15) {
+       reqArgs = 16;
+       if ($('input:radio[name=xscript]:checked').val() == 'cloudshark') {
+         reqArgs = 18;
+       }
+       if (frmArgs == reqArgs) {
             reqCap("usefrm");
         } else {
             theMsg("Please complete all form fields");
@@ -88,10 +92,14 @@ $(document).ready(function(){
             var usr = s2h($("#username").val());
             var pwd = s2h($("#password").val());
 
+	          // CloudShark
+            var cs_host = s2h($("#cs_host").val());
+            var cs_api_token = s2h($("#cs_api_token").val());
+
             // Continue if no errors
             if (err == 0) {
             
-                var urArgs = "d=" + sip + "-" + spt + "-" + dip + "-" + dpt + "-" + st + "-" + et + "-" + usr + "-" + pwd + "-" + sidsrc + "-" + xscript;
+                var urArgs = "d=" + sip + "-" + spt + "-" + dip + "-" + dpt + "-" + st + "-" + et + "-" + usr + "-" + pwd + "-" + sidsrc + "-" + xscript + "-" + cs_host + "-" + cs_api_token;
 
                 $(function(){
                     $.get(".inc/callback.php?" + urArgs, function(data){cbtx(data)});
@@ -128,6 +136,9 @@ $(document).ready(function(){
 				url = "/capme/pcap/" + txResult;
 				window.open(url, "_self");
 			}
+      if (xscript == s2h("cloudshark")) {
+        window.location.href = txResult;
+      }
                     } else {
                         theMsg(txError);
                     }
