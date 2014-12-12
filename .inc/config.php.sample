@@ -4,4 +4,6 @@ $dbHost = '10.13.1.226';
 $dbName = 'sguildb';
 $dbUser = 'readonly';
 $dbPass = 'readonly';
+$cloudshark_host = '192.168.2.131';
+$cloudshark_api_token = '0422b3976c376c1aa668520b66423cca';
 ?>
